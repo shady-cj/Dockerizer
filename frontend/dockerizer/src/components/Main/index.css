@@ -1,0 +1,28 @@
+main {
+    padding: 1rem;
+    font-size: 0.7em;
+}
+
+.source-code-type {
+    padding: 1rem 1.3rem;
+}
+
+.source-code-type input[type=radio]:last-of-type {
+    margin-left: 1rem;
+}
+
+.source-code-type label {
+    margin: 0 0.2em;
+}
+
+.code-info {
+    margin: 0.5rem 0;
+}
+
+.repo_text {
+    padding: 0.5em;
+    font-size: 0.7em;
+    min-width: 100px;
+    width: 220px;
+    font-family: var(--base-font);
+}
