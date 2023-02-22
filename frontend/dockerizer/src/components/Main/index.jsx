@@ -26,6 +26,21 @@ function Main() {
         setSourceCodeInput(inputType);
         setOptions(prevOpt => ({ ...prevOpt, zipFile: null, gitRepoLink: "" }));
     }
+    
+    const handleSubmit = async (e) => {
+        const data = new FormData();
+        for (let optionKey in options) {
+            data.append(optionKey, options[optionKey])
+        }
+        console.log(data);
+        const response = await fetch('http://127.0.0.1:5000', {
+            method: "POST",
+            body: data,
+        })
+        const result = await response.json()
+        console.log(result);
+
+    }
 
 
   return (
@@ -47,7 +62,7 @@ function Main() {
                       sourceCodeInput && (
                           sourceCodeInput == "zip" ? (
     
-                                  <input type="file" name="zipFile" onChange={handleFileChange} />
+                                  <input type="file" name="zipFile" accept=".zip,.rar,.7z,.gz" onChange={handleFileChange} />
                               
                             ) : (
                                 <input type="text" className='repo_text' name="gitRepoLink" onChange={handleChange}/>
@@ -56,6 +71,8 @@ function Main() {
                       }
                       </div>
               </fieldset>
+
+              <button style={{fontWeight: "bold"}} onClick={handleSubmit}>Dockerize</button>
       </div>
     </main>
   )
