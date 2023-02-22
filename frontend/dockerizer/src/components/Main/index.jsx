@@ -33,7 +33,7 @@ function Main() {
             data.append(optionKey, options[optionKey])
         }
         console.log(data);
-        const response = await fetch('http://127.0.0.1:5000', {
+        const response = await fetch('http://192.168.0.106:8000', {
             method: "POST",
             body: data,
         })
