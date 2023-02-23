@@ -28,11 +28,12 @@ function Main() {
     }
     
     const handleSubmit = async (e) => {
+        console.log(options);
         if (options.sourceCodeType == "zip" && options.zipFile == null)
             alert('Error: No zip file selected')
         else if (options.sourceCodeType == "repo" && options.gitRepoLink == "")
             alert('Error: No repo link added')
-        else
+        else if (options.sourceCodeType == "")
             alert("Choose a zip file or put a repo link of the source code to dockerize")
         const data = new FormData();
         for (let optionKey in options) {
