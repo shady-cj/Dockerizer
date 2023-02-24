@@ -14,7 +14,7 @@ function Main() {
     const handleChange = (e) => {
         if (e.target.name == "sourceCodeType")
             showCorrectInput(e.target.value);
-        setOptions(prevOpt => ({ ...prevOpt, [e.target.name]: e.target.value }));
+        setOptions(prevOpt => ({ ...prevOpt, [e.target.name]: e.target.value.trim() }));
         console.log(options);
     }
     const handleFileChange = (e) => {
@@ -28,16 +28,24 @@ function Main() {
     }
     
     const handleSubmit = async (e) => {
+        console.log(options);
+        if (options.sourceCodeType == "zip" && options.zipFile == null)
+            alert('Error: No zip file selected')
+        else if (options.sourceCodeType == "repo" && options.gitRepoLink == "")
+            alert('Error: No repo link added')
+        else if (options.sourceCodeType == "")
+            alert("Choose a zip file or put a repo link of the source code to dockerize")
         const data = new FormData();
         for (let optionKey in options) {
             data.append(optionKey, options[optionKey])
         }
         console.log(data);
-        const response = await fetch('http://127.0.0.1:5000', {
+        const response = await fetch('http://192.168.0.106:8000', {
             method: "POST",
             body: data,
         })
         const result = await response.json()
+        .catch(err=> console.log(err))
         console.log(result);
 
     }

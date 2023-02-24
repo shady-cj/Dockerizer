@@ -4,6 +4,8 @@ from flask import Flask, request
 from flask_cors import CORS
 import os 
 import zipfile
+import tarfile
+from dockerizer.containerizer.setup import setup_config
 
 app = Flask(__name__.split(".")[0])
 CORS(app, resources={r"*": {"origins": "*"}})
@@ -11,15 +13,26 @@ CORS(app, resources={r"*": {"origins": "*"}})
 
 @app.route('/', methods=['POST'], strict_slashes=False)
 def index():
-    print(request.environ)
     # print(dict(request.files)) # {'zipFile': <FileStorage: 'stripmining.jpg' ('image/jpeg')>}
     f = request.files.get('zipFile')
-    if not zipfile.is_zipfile(f):
-        return {"error": "Invalid or Corrupted Zip file"}
-    f.save(secure_filename(f.filename))
-    # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
+
+    application = dict(request.form)
+    zipped = None
+    if f:
+        filename = str(secure_filename(f.filename))
+        f.save(filename)
+        if tarfile.is_tarfile(filename):
+            zipped = 'tar_zip'
+        elif zipfile.is_zipfile(filename):
+            zipped = 'regular_zip'
+        if not zipped:
+            return {"error": "Invalid or Corrupted Zip file"}, 400
+        application.update({'zipFilename': filename, 'zip_type': zipped})
     
-    return {"message": "Hello world"}
+    response = setup_config(application)
+    # f.save(secure_filename(f.filename))
+    # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
+    return {"message": response[0]}, response[1]
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port='8000')
