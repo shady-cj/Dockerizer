@@ -4,6 +4,7 @@ from fabric.api import run,env,local,sudo,cd,execute
 import uuid
 import zipfile
 import tarfile
+import os
 
 
 
@@ -45,7 +46,18 @@ def codebase_setup(app):
 
             except:
                 return ["An error occured while cloning", 400]
-        run("docker build -t app-{} .".format(session_id))
-        
-    local('rm -rf static')
+            
+        if app.get('dockerfilePresent') == 'yes':
+            root_folder = app.get('rootFolder').lstrip('/')
+            print(os.getcwd())
+            print(os.path.exists(root_folder))
+            try:
+                with cd(root_folder):
+                    find_dockerfile = run('find . -name Dockerfile')
+                    print(find_dockerfile.strip('\n'))
+            except:
+                return ["Invalid root path provided", 400]
+        # run("docker build -t app-{} .".format(session_id))
+        # run("docker ps")
+    # local('rm -rf static')
     return ["success", 200]
