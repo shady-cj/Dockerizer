@@ -46,6 +46,6 @@ def codebase_setup(app):
             except:
                 return ["An error occured while cloning", 400]
         run("docker build -t app-{} .".format(session_id))
-        run("docker ps")
+        
     local('rm -rf static')
     return ["success", 200]
