@@ -31,28 +31,35 @@ function Main() {
     
     const handleSubmit = async (e) => {
         console.log(options);
-        if (options.sourceCodeType == "zip" && options.zipFile == null)
+        if (options.sourceCodeType === "zip" && options.zipFile === null)
         {
             alert('Error: No zip file selected')
             return;
             
             }
-        else if (options.sourceCodeType == "repo" && options.gitRepoLink == "")
+        else if (options.sourceCodeType === "repo" && options.gitRepoLink === "")
         {
             alert('Error: No repo link added')
             return;
             }
-        else if (options.sourceCodeType == "")
+        else if (options.sourceCodeType === "")
         {
             alert("Choose a zip file or put a repo link of the source code to dockerize")
             return;
-            }
+        }
+        if (options.dockerfilePresent === "") 
+        {
+            alert("Confirm if you have a dockerfile present in your source code folder!");
+            return;
+        }
+            
         const data = new FormData();
         for (let optionKey in options) {
             data.append(optionKey, options[optionKey])
         }
         console.log(data);
-        const response = await fetch('http://192.168.0.106:8000', {
+        // 192.168.0.106
+        const response = await fetch('http://172.20.10.5:8000', {
             method: "POST",
             body: data,
         })
@@ -101,8 +108,9 @@ function Main() {
                       <input type="radio" name="dockerfilePresent" id='dockerfile-no' value='no' onChange={handleChange}/> <label htmlFor="dockerfile-no"> No </label>
                   </section>
                   <section className='root-folder'>
-                      <label>What is the root folder of you</label>
-                      <input type="text" />
+                      <label htmlFor='rootfolder-text'>What is the root folder of your application</label>
+                      <input type="text" name="rootFolder" id="rootfolder-text" onChange={handleChange} /><br/>
+                      <small style={{ color: "gray", marginLeft: "0.25rem"}}>You can just type in "." or leave empty if the root folder is the present application folder.</small>
                   </section>
               </fieldset>
 
