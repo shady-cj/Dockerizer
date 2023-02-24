@@ -5,6 +5,8 @@ const defaultOptions = {
     sourceCodeType: "",
     zipFile: null,
     gitRepoLink: "",
+    dockerfilePresent: "",
+    rootFolder: ""
 }
 
 function Main() {
@@ -30,11 +32,21 @@ function Main() {
     const handleSubmit = async (e) => {
         console.log(options);
         if (options.sourceCodeType == "zip" && options.zipFile == null)
+        {
             alert('Error: No zip file selected')
+            return;
+            
+            }
         else if (options.sourceCodeType == "repo" && options.gitRepoLink == "")
+        {
             alert('Error: No repo link added')
+            return;
+            }
         else if (options.sourceCodeType == "")
+        {
             alert("Choose a zip file or put a repo link of the source code to dockerize")
+            return;
+            }
         const data = new FormData();
         for (let optionKey in options) {
             data.append(optionKey, options[optionKey])
@@ -70,7 +82,7 @@ function Main() {
                       sourceCodeInput && (
                           sourceCodeInput == "zip" ? (
     
-                                  <input type="file" name="zipFile" accept=".zip,.rar,.7z,.gz" onChange={handleFileChange} />
+                                  <input type="file" name="zipFile" accept=".zip,.gz" onChange={handleFileChange} />
                               
                             ) : (
                                 <input type="text" className='repo_text' name="gitRepoLink" onChange={handleChange}/>
@@ -78,6 +90,20 @@ function Main() {
                       )
                       }
                       </div>
+              </fieldset>
+              <fieldset className='application-info'>
+                  <legend>
+                      Application Configuration
+                  </legend>
+                  <section className='dockerfile-present'>
+                      <h4>Do you have a dockerfile present in the source code provided?</h4>
+                      <input type="radio" name="dockerfilePresent" id='dockerfile-yes' value='yes' onChange={handleChange} /> <label htmlFor='dockerfile-yes'>Yes</label> 
+                      <input type="radio" name="dockerfilePresent" id='dockerfile-no' value='no' onChange={handleChange}/> <label htmlFor="dockerfile-no"> No </label>
+                  </section>
+                  <section className='root-folder'>
+                      <label>What is the root folder of you</label>
+                      <input type="text" />
+                  </section>
               </fieldset>
 
               <button style={{fontWeight: "bold"}} onClick={handleSubmit}>Dockerize</button>
