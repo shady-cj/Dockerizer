@@ -17,6 +17,13 @@ function Main() {
     const handleChange = (e) => {
         if (e.target.name == "sourceCodeType")
             showCorrectInput(e.target.value);
+        if (e.target.name == "dockerfilePresent")
+        {
+            if (e.target.value.trim() == "no")
+                loadImages()
+            
+        }
+            
         setOptions(prevOpt => ({ ...prevOpt, [e.target.name]: e.target.value.trim() }));
         console.log(options);
     }
@@ -60,7 +67,8 @@ function Main() {
         }
         console.log(data);
         // 192.168.0.106
-        const response = await fetch('http://172.20.10.5:8000', {
+        // 172.20.10.5
+        const response = await fetch('http://192.168.0.106:8000', {
             method: "POST",
             body: data,
         })
@@ -68,6 +76,13 @@ function Main() {
         .catch(err=> console.log(err))
         console.log(result);
 
+    }
+
+    const loadImages = async () => {
+        const req = await fetch("http://192.168.0.106:8000/images")
+        const resp = await req.json()
+        .catch(err => console.log(err))
+        console.log(req)
     }
 
 

@@ -34,5 +34,15 @@ def index():
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
     return {"message": response[0]}, response[1]
 
+@app.route('/images', methods=['POST'], strict_slashes=False)
+def fetchImages():
+    import requests
+    req = requests.get("https://hub.docker.com/v2/repositories/library/?page_size=100")
+    response = req.json()
+    images = []
+    for image in response.result:
+        images.append(image.name)
+    return {"images": images}, 200
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port='8000')
