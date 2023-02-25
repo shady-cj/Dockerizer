@@ -6,7 +6,8 @@ const defaultOptions = {
     zipFile: null,
     gitRepoLink: "",
     dockerfilePresent: "",
-    rootFolder: ""
+    rootFolder: "",
+    dockerfilePath: ""
 }
 
 function Main() {
@@ -102,16 +103,28 @@ function Main() {
                   <legend>
                       Application Configuration
                   </legend>
+                  <section className='root-folder'>
+                      <label htmlFor='rootfolder-text'>What is the root folder of your application</label>
+                      <input type="text" name="rootFolder" id="rootfolder-text" onChange={handleChange} /><br/>
+                      <small style={{ color: "gray", marginLeft: "0.25rem", fontSize:"0.7em"}}>You can just type in "." or leave empty if the root folder is the present application folder.</small>
+                  </section>
                   <section className='dockerfile-present'>
                       <h4>Do you have a dockerfile present in the source code provided?</h4>
                       <input type="radio" name="dockerfilePresent" id='dockerfile-yes' value='yes' onChange={handleChange} /> <label htmlFor='dockerfile-yes'>Yes</label> 
                       <input type="radio" name="dockerfilePresent" id='dockerfile-no' value='no' onChange={handleChange}/> <label htmlFor="dockerfile-no"> No </label>
+
+                      <section style={{margin: "0.45rem 0.7rem"}}>
+                        {
+                        options.dockerfilePresent === "yes" ? <>
+                            <label htmlFor="dockerfilePath" style={{marginRight: "0.7rem", fontSize:"0.8em"}}>The Dockerfile path relative to the root folder specified</label>
+                            <input type="text" name="dockerfilePath" id="dockerfilePath" onChange={handleChange} style={{fontSize: "0.6em", height: "0.8rem",width: "8rem"}} placeholder="Leave blank if same as root folder"/> 
+                        </> : <></>
+                        
+                    }
+
+                      </section>
                   </section>
-                  <section className='root-folder'>
-                      <label htmlFor='rootfolder-text'>What is the root folder of your application</label>
-                      <input type="text" name="rootFolder" id="rootfolder-text" onChange={handleChange} /><br/>
-                      <small style={{ color: "gray", marginLeft: "0.25rem"}}>You can just type in "." or leave empty if the root folder is the present application folder.</small>
-                  </section>
+                  
               </fieldset>
 
               <button style={{fontWeight: "bold"}} onClick={handleSubmit}>Dockerize</button>

@@ -42,21 +42,32 @@ def codebase_setup(app):
                 
         else:
             try:
-                run('git clone {} .'.format(app.get("gitRepoLink")))
+                repo_link = app.get("gitRepoLink")
+                if repo_link.find("git@github.com:") == -1:
+                    sp = repo_link.split("github.com")
+                    sp = sp[1].strip("/")
+                    print(sp)
+                    repo_link = "git@github.com:" + sp + ".git"
+                    print(repo_link)
+                run('git clone {} .'.format(repo_link))
 
             except:
                 return ["An error occured while cloning", 400]
-        if app.get('dockerfilePresent') === 'yes':
-            root_folder = app.get('rootFolder').lstrip('/')
-            print(os.getcwd())
-            print(os.path.exists(root_folder))
-            try:
-                with cd(root_folder):
-                    find_dockerfile = run('find . -name Dockerfile')
-                    print(find_dockerfile.strip('\n'))
-            except:
-                return ["Invalid root path provided", 400]
+            
+        root_folder = app.get('rootFolder').lstrip('/')
+        if root_folder == "":
+            root_folder = "."
+        
+        try:
+            with cd(root_folder):
+                docker_file_path = app.get("dockerfilePath")
+                if docker_file_path == "":
+                    docker_file_path = "."
+                if app.get('dockerfilePresent') == 'yes':
+                    run("docker build -t app-{} {}".format(session_id, docker_file_path))
+        except:
+            return ["Invalid root path provided", 400]
         # run("docker build -t app-{} .".format(session_id))
         # run("docker ps")
-    # local('rm -rf static')
+    local('rm -rf static')
     return ["success", 200]
