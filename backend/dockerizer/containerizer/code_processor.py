@@ -53,10 +53,13 @@ def codebase_setup(app):
 
             except:
                 return ["An error occured while cloning", 400]
-            
+
+        current_path = current_directory + "/static/session-" + str(session_id)
         root_folder = app.get('rootFolder').lstrip('/')
         if root_folder == "":
             root_folder = "."
+        else:
+            current_path = current_path + "/" + root_folder
         
         try:
             with cd(root_folder):
@@ -65,6 +68,14 @@ def codebase_setup(app):
                     docker_file_path = "."
                 if app.get('dockerfilePresent') == 'yes':
                     run("docker build -t app-{} {}".format(session_id, docker_file_path))
+                else:
+                    custom_dockerfile = app.get("customDockerfile").strip()
+                    if len(custom_dockerfile) > 10:
+                        with open(f"{current_path}/Dockerfile",  "w+") as f:
+                            f.write(custom_dockerfile)
+                    run("docker build -t app-{} .".format(session_id))    
+                        
+                        
         except:
             return ["Invalid root path provided", 400]
         # run("docker build -t app-{} .".format(session_id))
