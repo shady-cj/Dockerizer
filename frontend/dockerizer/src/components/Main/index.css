@@ -5,6 +5,7 @@ main {
 
 .source-code-type {
     padding: 1rem 1.3rem;
+    margin-bottom: 0.5rem;
 }
 
 .source-code-type input[type=radio]:last-of-type {
@@ -29,10 +30,38 @@ button {
     margin: 0.5rem 0;
 }
 
+.application-info {
+    margin-top: 1rem;
+    padding: 1rem 1.3rem;
+}
+
+.application-info section {
+    margin: 1rem 0
+}
+
+.application-info legend,
+.source-code-type legend {
+    font-weight: 600;
+}
+
 .repo_text {
     padding: 0.5em;
     font-size: 0.7em;
     min-width: 100px;
     width: 220px;
     font-family: var(--base-font);
+}
+
+.dockerfile-present h4 {
+    font-weight: 500;
+    display: inline-block;
+    margin: 0 0.5rem 0 0;
+}
+
+.dockerfile-present input[type=radio]:last-of-type {
+    margin-left: 0.5rem;
+}
+
+.root-folder label {
+    margin-right: 1rem;
 }
