@@ -1,12 +1,9 @@
 #!/usr/bin/python3
-
 from fabric.api import run,env,local,sudo,cd,execute
 import uuid
 import zipfile
 import tarfile
-import os
-
-
+import json
 
 env.hosts=['127.0.0.1']
 env.user = 'ceejay'
@@ -66,17 +63,59 @@ def codebase_setup(app):
                 docker_file_path = app.get("dockerfilePath")
                 if docker_file_path == "":
                     docker_file_path = "."
+                
                 if app.get('dockerfilePresent') == 'yes':
-                    run("docker build -t app-{} {}".format(session_id, docker_file_path))
+                    try:
+                        run("docker build -t app-{} {}".format(session_id, docker_file_path))
+                    except:
+                        return ["An error occured while building your image from the dockerfile you provided,\
+    check the dockerfile and the path provided and ensure no error", 400]
                 else:
                     custom_dockerfile = app.get("customDockerfile").strip()
+                    compose_dockerfile = ""
                     if len(custom_dockerfile) > 10:
+                        compose_dockerfile = custom_dockerfile
+                    else:
+                        
+                        docker_base_image = app.get("baseImage")
+                        docker_image_tag = app.get("imageTag")
+                        tag = f":{docker_image_tag}" if len(docker_image_tag.strip()) else ""
+                        docker_run_commands = eval(app.get("runCommands"))
+                        docker_cmd_commands = eval(app.get("cmdCommands"))
+                        docker_envs = eval(app.get("envs"))
+                        docker_ports = eval(app.get("ports"))
+                        compose_dockerfile = f"FROM {docker_base_image}{tag}\n"
+                        compose_dockerfile += "WORKDIR /app\n"
+                        compose_dockerfile += "COPY . .\n"
+                        for key, command in docker_run_commands.items():
+                            compose_dockerfile += f"RUN {command}\n"
+                        for key, env in docker_envs.items():
+                            compose_dockerfile += f"ENV {env}\n"
+                        for key, cmd in docker_cmd_commands.items():
+                            compose_dockerfile += "CMD "
+                            cmd_array = cmd.split(" ")
+                            stripped_cmd_array = []
+                            for c in cmd_array:
+                                stripped_cmd_array.append(c.strip())
+                            
+
+                            compose_dockerfile += f"{json.dumps(stripped_cmd_array)}\n"
+                        for key, port in docker_ports.items():
+                            compose_dockerfile += f"EXPOSE {port}\n"
+                        print(compose_dockerfile)
+                    try:
                         with open(f"{current_path}/Dockerfile",  "w+") as f:
-                            f.write(custom_dockerfile)
-                    run("docker build -t app-{} .".format(session_id))    
+                            f.write(compose_dockerfile)
+                    except:
+                        return ["An error occured while saving the dockerfile provided", 400]
+                    try:
+                        run("docker build -t app-{} .".format(session_id))    
+                    except:
+                        return ["An error occured with the dockerfile template you provided", 400]
                         
                         
-        except:
+        except Exception as e:
+            print(e)
             return ["Invalid root path provided", 400]
         # run("docker build -t app-{} .".format(session_id))
         # run("docker ps")
