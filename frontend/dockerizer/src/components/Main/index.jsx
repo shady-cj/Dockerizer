@@ -11,6 +11,10 @@ const defaultOptions = {
     baseImage: "",
     imageTag: "",
     customDockerfile: "",
+    appName: "",
+    appDirectory: "",
+    hubUsername: "",
+    hubPassword: "",
     runCommands: {},
     cmdCommands: {},
     ports: {},
@@ -35,6 +39,10 @@ function Main() {
             if (e.target.value.trim() == "no")
                 loadImages()
             
+        }
+        if (["appName", "appTag"].includes(e.target.name))
+        {
+            e.target.value = e.target.value.replace(' ', '')
         }
         if (e.target.name === "baseImage")
             loadTags(e.target.value)
@@ -217,6 +225,11 @@ function Main() {
                                     {
                                         options.baseImage.length ? <section>
                                         <div>
+                                            <label style={{fontSize: "0.85em"}} htmlFor="app-dir"></label>
+                                            <input type="text" name="appDirectory" id="app-dir" onChange={handleChange} /><br/>
+                                            <small style={{ color: "gray", marginLeft: "0.25rem", fontSize:"0.7em"}}>Provide the directory in which the app you wish to create an image of is present(relative to the root folder). leave blank or enter "." if it's the same directory as the root folder/directory</small>
+                                        </div>
+                                        <div>
                                         <label style={{fontSize: "0.85em"}}>Do you have commands you would like to run while building the image?</label><br/>
                                         {
                                                 runCommandsNums.map((item, index) => {
@@ -334,7 +347,30 @@ function Main() {
                   </section>
                   
               </fieldset>
+              <fieldset className='user-spec-info'>
+                    <legend>Personalized Information</legend>
+                    <section>
+                        <div>
+                            <label htmlFor="app-name">What do you want to name your image/app ?</label>
+                            <input type="text" name="appName" id="app-name" value={options.appName} onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="app-tag">What do you want to tag your image/app (version)?</label>
+                            <input type="text" name="appTag" id="app-tag" value={options.appTag} onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="username">What is your dockerhub username</label>
+                            <input type="text" name="hubUsername" id="username" value={options.hubUsername} onChange={handleChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="password">What is your dockerhub password</label>
+                            <input type="password" name="hubPassword" id="password" value={options.hubPassword} onChange={handleChange}/>
+                        </div><br/>
+                        <small>It's important to know that your information won't be stored or saved anywhere it's strictly for pushing your image to your docker hub account so you can be assured that it's safe</small>
 
+                        
+                    </section>
+              </fieldset>
               <button style={{fontWeight: "bold"}} onClick={handleSubmit}>Dockerize</button>
       </div>
     </main>
