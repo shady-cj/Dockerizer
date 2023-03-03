@@ -37,7 +37,7 @@ def index():
     # f.save(secure_filename(f.filename))
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
     if response[1] != 200:
-        return {"message": response[0]}, response[1]
+        return {"error": response[0]}, response[1]
     return {"message": response[0], "image": response[2]}, response[1]
 
 @app.route('/images', methods=['GET'], strict_slashes=False)

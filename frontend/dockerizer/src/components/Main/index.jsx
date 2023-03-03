@@ -102,7 +102,7 @@ function Main() {
         }
         if (options.customDockerfile.length < 10)
         {
-            if (!options.baseImage.length)
+            if (options.dockerfilePresent === "no" && !options.baseImage.length)
             {
                 alert("If you don't have a valid dockerfile template please select a base docker image to correctly build your image")
                 return;
@@ -124,7 +124,8 @@ function Main() {
         console.log(data);
         // 192.168.0.106
         // 172.20.10.5
-        const response = await fetch('http://192.168.0.105:8000', {
+        // http://192.168.1.105:5173/
+        const response = await fetch('http://192.168.1.105:8000', {
             method: "POST",
             body: data,
         })
@@ -137,7 +138,7 @@ function Main() {
     }
 
     const loadImages = async () => {
-        const req = await fetch("http://192.168.0.105:8000/images")
+        const req = await fetch("http://192.168.1.105:8000/images")
         const resp = await req.json()
         .catch(err => console.log(err))
         console.log(resp)
@@ -146,7 +147,7 @@ function Main() {
     }
     const loadTags = async (imageName) => {
         setTags([])
-        const req = await fetch(`http://192.168.0.105:8000/${imageName}/tags`)
+        const req = await fetch(`http://192.168.1.105:8000/${imageName}/tags`)
         const response = await req.json()
         .catch(err => console.log(err))
         console.log(response)
@@ -173,7 +174,7 @@ function Main() {
                       sourceCodeInput && (
                           sourceCodeInput == "zip" ? (
     
-                                  <input type="file" name="zipFile" value={options.zipFile} accept=".zip,.gz" onChange={handleFileChange} />
+                                  <input type="file" name="zipFile" accept=".zip,.gz" onChange={handleFileChange} />
                               
                             ) : (
                                 <input type="text" className='repo_text' value={options.gitRepoLink} name="gitRepoLink" onChange={handleChange}/>

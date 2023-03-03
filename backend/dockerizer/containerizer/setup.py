@@ -1,3 +1,7 @@
+"""
+The module calls the fabric task with the use of execute function call from
+fabric api module.
+"""
 from .code_processor import codebase_setup
 from fabric.api import execute
 
