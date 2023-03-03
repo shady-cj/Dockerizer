@@ -1,4 +1,3 @@
-
 from werkzeug.utils import secure_filename
 from flask import Flask, request
 from flask_cors import CORS
@@ -13,6 +12,11 @@ CORS(app, resources={r"*": {"origins": "*"}})
 
 @app.route('/', methods=['POST'], strict_slashes=False)
 def index():
+    """ 
+    Main route that accepts all the application configurations and
+    options required to build the application
+    
+    """
     # print(dict(request.files)) # {'zipFile': <FileStorage: 'stripmining.jpg' ('image/jpeg')>}
     f = request.files.get('zipFile')
 
@@ -32,10 +36,15 @@ def index():
     response = setup_config(application)
     # f.save(secure_filename(f.filename))
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
-    return {"message": response[0]}, response[1]
+    if response[1] != 200:
+        return {"error": response[0]}, response[1]
+    return {"message": response[0], "image": response[2]}, response[1]
 
 @app.route('/images', methods=['GET'], strict_slashes=False)
 def fetchImages():
+    """
+    The route returns available official image (100 images)
+    """
     import requests
     req = requests.get("https://hub.docker.com/v2/repositories/library/?page_size=100")
     response = req.json()
@@ -48,6 +57,9 @@ def fetchImages():
 
 @app.route('/<image>/tags', methods=['GET'], strict_slashes=False)
 def fetchTags(image):
+    """
+    returns the tags corresponding to the image.
+    """
     import requests
     req = requests.get(f"https://hub.docker.com/v2/repositories/library/{image}/tags?page_size=200")
     response = req.json()
