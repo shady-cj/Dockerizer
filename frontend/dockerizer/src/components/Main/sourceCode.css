@@ -1,0 +1,32 @@
+.source-code-type input[type='text'],
+.source-code-type input[type='file'] {
+    margin-top: 0.5rem;
+}
+
+.source-code-type input[type='radio'] {
+    accent-color: rgb(36, 36, 36);
+}
+
+.source-code-type input[type=radio]:last-of-type {
+    margin-left: 1rem;
+}
+
+.source-code-type label {
+    margin: 0 0.2em;
+}
+
+.repo_text {
+    padding: 0.3em;
+    font-size: 1em;
+    min-width: 10rem;
+    width: 30%;
+    border: none;
+    border-radius: 0.2rem;
+    transition: all 0.4s ease-in;
+}
+
+.repo_text:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}

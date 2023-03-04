@@ -1,0 +1,265 @@
+.application {
+    margin-top: 1rem;
+}
+
+.application-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.application-info>section {
+    display: flex;
+    /* align-items: center; */
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.6rem 0;
+}
+
+.application-info>section:first-of-type {
+    border-bottom: 1px solid var(--complementary-color)
+}
+
+.root-folder-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.root-folder-text {
+    width: 40%;
+    min-width: 5rem;
+    padding: 0.3em 0.2em;
+    border: none;
+    transition: all 0.4s ease-in;
+    border-radius: 0.15rem;
+}
+
+.root-folder-text:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}
+
+.dockerfile-present {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.dockerfile-present>section {
+    z-index: 2;
+}
+
+.dockerfile-present>section>h4 {
+    font-weight: 400;
+    margin-left: 0.3rem;
+    position: relative;
+}
+
+.dockerfile-present>section>h4.show-dock-path::before {
+    position: absolute;
+    content: '';
+    left: -0.4rem;
+    top: 0.3rem;
+    width: 1.2rem;
+    height: 2.35rem;
+    z-index: 0;
+    border: 1.5px solid;
+    border-radius: 5px;
+    border-color: transparent transparent var(--complementary-color) var(--complementary-color);
+}
+
+.dockerfile-present>section:first-of-type {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dockerfile-present>section:first-of-type>div {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+.dockerfile-present>section:first-of-type>div input[type='radio'] {
+    accent-color: rgb(36, 36, 36);
+}
+
+.dockerfile-present>section>.docker-file-path {
+    background-color: var(--base-color);
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.dockerfile-present>section>.docker-file-path>input {
+    padding: 0.3rem 0.2rem;
+    border-radius: 3.5px;
+    border: none;
+    transition: all 0.4s ease-in;
+}
+
+.dockerfile-present>section>.docker-file-path>input:focus {
+    outline: none;
+    box-shadow: 0 0 4px 2px var(--complementary-color);
+    border: none;
+}
+
+.dockerfile-present>section svg {
+    font-size: 3rem;
+    margin-left: 1rem;
+    margin-top: -1rem;
+    color: var(--complementary-color)
+}
+
+.options-container {
+    margin: 1rem;
+    padding: 1.5rem 2rem;
+    border: 1px solid var(--complementary-color);
+    border-radius: 0.48em;
+}
+
+.image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.image-container input {
+    width: 30%;
+    min-width: 8rem;
+    height: 1.3rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.4s ease-in;
+}
+
+.image-container input:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}
+
+.custom-dockerfile-container {
+    display: flex;
+    justify-content: space-between;
+    margin: 3rem 0;
+    padding-top: 1rem;
+    margin-bottom: 0;
+    border-top: 1px solid var(--complementary-color)
+}
+
+.custom-dockerfile-container textarea {
+    border: none;
+    border-radius: 5px;
+    resize: none;
+    padding: 0.6rem 0.4rem;
+    width: 40%;
+    max-width: 25rem;
+    transition: all 0.4s ease-in;
+}
+
+.custom-dockerfile-container textarea:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}
+
+.tag-info-container {
+    margin-top: 1rem;
+    padding: 1rem 1.3rem;
+    border-top: 1px solid var(--complementary-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tag-info-container>label {
+    font-size: 0.9em;
+}
+
+.tag-info-container input {
+    width: 30%;
+    min-width: 7rem;
+    height: 1.35rem;
+    cursor: pointer;
+    transition: all 0.4s ease-in;
+    border: none;
+    border-radius: 4px;
+}
+
+.tag-info-container input:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}
+
+.command-options {
+    margin: 1rem 1.3rem;
+    border: 1px solid var(--complementary-color);
+    padding: 1rem 1.3rem;
+    border-radius: 4.5px;
+}
+
+.command-options>div {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0;
+}
+
+.command-options>div:not(div:last-child) {
+    border-bottom: 1px solid var(--complementary-color);
+    padding-bottom: 0.8rem;
+}
+
+.command-options>div>label {
+    font-size: 0.85em;
+}
+
+.command-options>div>.extras-input {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-basis: 50%;
+    align-items: flex-end;
+}
+
+.command-options>div>.extras-input div {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.3rem;
+}
+
+.command-options>div>.extras-input a {
+    cursor: pointer;
+    font-size: 0.8em;
+    font-weight: bold;
+    text-transform: lowercase;
+}
+
+.command-options>div>.extras-input input,
+.appdir-info {
+    width: 12rem;
+    padding: 0.25rem;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.4s ease-in;
+}
+
+.command-options>div>.extras-input input:focus,
+.appdir-info:focus {
+    outline: none;
+    box-shadow: 0 0 5px 3px var(--complementary-color);
+    border: none;
+}
+
+.command-options>div>.extras-input div small>svg {
+    font-size: 0.85rem;
+    margin-top: 0.18rem;
+    cursor: pointer;
+}
