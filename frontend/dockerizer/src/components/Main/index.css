@@ -30,12 +30,14 @@ button {
     margin: 0.5rem 0;
 }
 
-.application-info, .user-spec-info {
+.application-info,
+.user-spec-info {
     margin-top: 1rem;
     padding: 1rem 1.3rem;
 }
 
-.application-info section, .user-spec-info section{
+.application-info section,
+.user-spec-info section {
     margin: 1rem 0
 }
 
