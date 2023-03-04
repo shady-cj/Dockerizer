@@ -95,7 +95,7 @@ def codebase_setup(app):
                         if r.failed:    
                             local("rm -rf static")
                             return ["An error occured while building your image from the dockerfile you provided,\
-        check the dockerfile template and the path provided and ensure no error", 400]
+check the dockerfile template and the path provided and ensure no error", 400]
                 else:
                     custom_dockerfile = app.get("customDockerfile").strip()
                     compose_dockerfile = ""
