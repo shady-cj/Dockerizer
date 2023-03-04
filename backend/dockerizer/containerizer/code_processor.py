@@ -70,7 +70,7 @@ def codebase_setup(app):
                         return ["An error occured while cloning", 400] 
             except:
                 local("rm -rf static")
-                return ["An error occured while cloning", 400]
+                return ["An error occured while cloning the repo you provided, possibly an invalid link", 400]
         current_path = current_directory + "/static/session-" + session_id
         root_folder = app.get('rootFolder').lstrip('/')
         if root_folder == "":
