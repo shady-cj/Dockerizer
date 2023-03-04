@@ -2,7 +2,8 @@
 :root {
     --base-color: #2596ec;
     --primary-color: #fff;
-    --secondary-color: #6b7781f2;
+    --secondary-color: #EBF5FD;
+    --complementary-color: #A7D5F7;
     --base-font: Roboto, system-ui, sans-serif;
     --font-size: 1.5rem;
 }
@@ -15,9 +16,14 @@
 
 body {
     min-height: 100vh;
+    background-color: var(--secondary-color);
 }
 
 html {
     font-size: var(--font-size);
+    font-family: var(--base-font);
+}
+
+input {
     font-family: var(--base-font);
 }

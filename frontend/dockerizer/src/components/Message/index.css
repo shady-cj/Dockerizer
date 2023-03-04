@@ -1,0 +1,73 @@
+.modal-overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-in;
+}
+
+.display-message {
+    width: 80vw;
+    height: 40vh;
+    padding: 0.5rem;
+    background-color: rgba(167, 213, 247, 0.7);
+    border-radius: 0.6rem;
+    backdrop-filter: blur(6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    transition: all 0.4s ease-in
+}
+
+.error-message {
+    color: red;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.success-message {
+    color: green;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.display-message p {
+    color: green;
+    font-size: 0.6em;
+}
+
+.display-message a {
+    font-size: 0.75em;
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}
+
+.display-message :is(a:focus, a:active, a:hover) {
+    color: red;
+}
+
+.error-message~p {
+    color: red;
+}
+
+.display-message>small {
+    position: absolute;
+    right: 3%;
+    top: 9%;
+    cursor: pointer;
+}
+
+.display-message>small>svg {
+    font-size: 1rem;
+    color: white;
+}
