@@ -22,7 +22,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0.7rem 0.5rem;
+    padding: 0.7rem 0;
 }
 
 .user-spec__info section>div input {
@@ -40,4 +40,27 @@
     outline: none;
     box-shadow: 0 0 5px 3px var(--complementary-color);
     border: none;
+}
+
+@media screen and (max-width: 768px) {
+    .user-spec__info section>div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1em;
+    }
+    .user-spec__info section>div input {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .user-spec__info section>div input {
+        width: 100%;
+    }
+    .user-spec__info section>div label {
+        font-size: 0.8em;
+    }
+    .user-spec__info section small {
+        font-size: 0.6em;
+    }
 }

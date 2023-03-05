@@ -10,9 +10,16 @@ header {
     color: var(--primary-color);
 }
 
-header h3 {
+
+/* header h3 {
     font-weight: 500;
     font-size: 1rem;
+} */
+
+header img {
+    width: 20%;
+    height: auto;
+    margin-left: -2rem;
 }
 
 header ul {
@@ -24,7 +31,7 @@ header ul {
 
 header ul li a {
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     cursor: pointer;
 }
 
@@ -32,4 +39,36 @@ header ul li a:hover,
 header ul li a:focus {
     color: rgba(255, 255, 255, 0.85);
     transition: color 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 992px) {
+    header img {
+        width: 24%;
+        margin-left: -1.5rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    header img {
+        width: 26%;
+        margin-left: -1rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    header img {
+        width: 35%;
+    }
+    header ul li a {
+        font-size: 0.6rem;
+    }
+    header ul {
+        gap: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 468px) {
+    header img {
+        width: 38%;
+    }
 }

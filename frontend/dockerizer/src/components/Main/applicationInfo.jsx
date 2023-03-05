@@ -115,7 +115,7 @@ const applicationInfo = ({ appOptions }) => {
                                         </div>
                                     </div>
                                     <div>
-                                    <label style={{fontSize: "0.85em"}}>Do you have a port you need to open up on the image(for running containers)</label>
+                                    <label>Do you have a port you need to open up on the image(for running containers)</label>
                                         <div className='extras-input'>
                                                           
                                             {
@@ -144,7 +144,7 @@ const applicationInfo = ({ appOptions }) => {
                                     
                                     </div>
                                     <div>
-                                        <label style={{ fontSize: "0.85em" }}>Commands to start up your apps?</label>
+                                        <label>Commands to start up your apps?</label>
                                         <div className='extras-input'>     
                                             {
                                             
@@ -171,7 +171,7 @@ const applicationInfo = ({ appOptions }) => {
                                         </div>
                                     </div>
                                     <div>
-                                         <label style={{ fontSize: "0.85em" }}>Environment variables?</label>
+                                         <label>Environment variables?</label>
                                         <div className='extras-input'>           
                                             {
                                                 envsNums.map((item, index) => {

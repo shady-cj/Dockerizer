@@ -49,6 +49,10 @@ button:not(.button-loading):hover {
     padding: 1rem 1.3rem;
 }
 
+.application-info {
+    margin-top: 0;
+}
+
 button svg {
     font-size: 1.8em;
 }
@@ -60,4 +64,14 @@ svg {
 .button-loading {
     padding: 0.55em;
     background-color: rgba(37, 150, 236, 0.8);
+}
+
+@media screen and (max-width: 576px) {
+    .application-info,
+    .user-spec-info {
+        padding: 1rem;
+    }
+    .subheader fieldset {
+        padding-inline: 0.6rem;
+    }
 }

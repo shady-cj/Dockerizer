@@ -18,7 +18,7 @@
 .repo_text {
     padding: 0.3em;
     font-size: 1em;
-    min-width: 10rem;
+    min-width: 9rem;
     width: 30%;
     border: none;
     border-radius: 0.2rem;
@@ -29,4 +29,16 @@
     outline: none;
     box-shadow: 0 0 5px 3px var(--complementary-color);
     border: none;
+}
+
+.source-code-type input[type='file'] {
+    width: 30%;
+    min-width: 9rem;
+}
+
+@media screen and (max-width: 576px) {
+    .source-code-type label {
+        font-size: 0.65rem;
+        margin-left: 0.4em;
+    }
 }

@@ -10,11 +10,11 @@ const userSpecInfo = ({ appOptions }) => {
                 <legend>Personalized Information</legend>
                 <section>
                     <div>
-                        <label htmlFor="app-name">What do you want to name your image/app ?</label>
+                        <label htmlFor="app-name">What do you want to name your image/app</label>
                         <input type="text" name="appName" id="app-name" value={options.appName} onChange={handleChange}/>
                     </div>
                     <div>
-                        <label htmlFor="app-tag">What do you want to tag your image/app (version)?</label>
+                        <label htmlFor="app-tag">What do you want to tag your image/app (version)</label>
                         <input type="text" name="appTag" id="app-tag" value={options.appTag} onChange={handleChange}/>
                     </div>
                     <div>

@@ -1,16 +1,17 @@
 import React from 'react'
 import './index.css'
+import logo from '../../assets/bg-white-logo.png'
 
 function Header() {
   return (
       <header>
-          <h3> Dockerizer </h3>
+          <img height={200} width={200} src={logo} alt="" />
           <ul>
               <li>
                   <a>Documentation</a>
               </li>
               <li>
-                  <a>About</a>
+                  <a>Blog</a>
               </li>
           </ul>
         </header>
