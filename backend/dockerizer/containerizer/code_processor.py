@@ -38,23 +38,18 @@ def codebase_setup(app):
                     with zipfile.ZipFile(filename, allowZip64=True) as file:
                         file.extractall(path='{}/static/session-{}'.format(current_directory, session_id))
                 except zipfile.LargeZipFile:
-                    local("rm -f {}".format(filename))
                     local(f"rm -rf static/session-{session_id}")
                     return ["Error: File size if too large", 400]
                 except:
-                    local("rm -f {}".format(filename))
                     local(f"rm -rf static/session-{session_id}")
                     return ["Error: Something went wrong while unzipping file", 400]
             else:
                 try:
                     with tarfile.open(filename) as t:
-                        # print(t.list(), "end")
                         t.extractall(path='{}/static/session-{}/'.format(current_directory, session_id))
                 except Exception as e:
-                    local("rm -f {}".format(filename))
                     local(f"rm -rf static/session-{session_id}")
                     return ["Error: Something went wrong while extracting tarfile", 400]
-            local("rm -f {}".format(filename))
                 
         else:
             try:

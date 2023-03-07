@@ -23,11 +23,11 @@ def index():
     """
     # print(dict(request.files)) # {'zipFile': <FileStorage: 'stripmining.jpg' ('image/jpeg')>}
     f = request.files.get('zipFile')
-
+    s_id = str(uuid.uuid4())
     application = dict(request.form)
     zipped = None
     if f:
-        filename = str(secure_filename(f.filename))
+        filename = str(secure_filename(f.filename)) + "_" + s_id
         f.save(filename)
         if tarfile.is_tarfile(filename):
             zipped = 'tar_zip'
@@ -36,18 +36,20 @@ def index():
         if not zipped:
             return {"error": "Invalid or Corrupted Zip file"}, 400
         application.update({'zipFilename': filename, 'zip_type': zipped})
-
-    filename = f"app-option_{str(uuid.uuid4())}"
-
-    with open(filename, "w") as f_obj:
+    obj_filename = f"app-option_{s_id}"
+    container_name = f"container_{s_id}"
+    with open(obj_filename, "w") as f_obj:
         json.dump(application, f_obj)
-    
-    local(f"~/backend/run_image.sh {filename}")
-    with open(filename) as f_out:
+    if zipped is not None:
+        local(f"~/backend/run_image_with_zip.sh {obj_filename} {filename} {container_name}")
+    else:
+        local(f"~/backend/run_image.sh {obj_filename} {container_name}")
+    with open(obj_filename) as f_out:
         response = json.load(f_out)
-    local(f"rm {filename}")
-    # f.save(secure_filename(f.filename))
-    # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
+    local(f"rm {obj_filename}")
+    if zipped is not None:
+        local(f"rm {filename}")
+    local(f"docker rm -f {container_name}")
     if response[1] != 200:
         return {"error": response[0]}, response[1]
     return {"message": response[0], "image": response[2]}, response[1]

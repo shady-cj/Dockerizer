@@ -37,5 +37,5 @@ COPY dockerizer/containerizer/ .
 RUN ssh-keygen -t rsa -N "" -f ~/.ssh/dockerizer_pem
 RUN cat /root/.ssh/dockerizer_pem.pub > /root/.ssh/authorized_keys
 EXPOSE 22
-CMD service ssh start; python3 -m setup
+CMD service ssh start; python3 -m setup > /dev/null;
 #CMD ["python3", "-m", "setup"]
