@@ -24,7 +24,7 @@ Before we go deep into how the application works let us start by iterating over 
       - [Zipped files](#zip)
    - [Application Configuration](#application-configuration)
    - [Personalized Information](#personalized-information)
-- Walkthrough on Technologies and libraries used.
+- [Walkthrough on Technologies and libraries used](#tools-walkthrough)
 
 #### Getting started.
 
@@ -139,6 +139,29 @@ Here are the fields in order they appear and what they mean.
 - This image name / app name: This is basically the docker hub repo name of your project or the name of your project itself. (You must likely name your dockerhub repo your app name or project name).
 - The image tag - This simply means the version you want to currently create an image for. Docker itself encourages project versioning which is important in progressive projects. If this field is left blank the default of "latest" is used.
 - The dockerhub credentials(username and password) - This is required so as to push the created image to the users dockerhub account. You don't have to worry about your credential leaks as this would not be stored/saved anywhere. All informations are deleted after every session (succesful or not)
+
+
+
+#### Tools Walkthrough
+
+### Dependencies :couple:
+
+**Front-End**:
+
+[React](https://reactjs.org/) 
+
+**Backend**
+[Flask](https://flask.palletsprojects.com/en/2.2.x/)
+[Fabric](https://www.fabfile.org/)
+[docker](https://docs.docker.com/get-started/)
+[gunicorn](https://gunicorn.org/)
+[PyJWT](https://pyjwt.readthedocs.io/en/stable/)
+
+
+
+The frontend is a simple react application that communicates with the flask backend api
+While the backend consist of a flask application that serves the api. Spin up a docker container from a pre-built image to run all each users dockerizer request. Also with the use of gunicorn and asynchronous request hadling the application is able to manage multiple request at the same time with no extra delay.
+
 
 
 
