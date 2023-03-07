@@ -13,6 +13,7 @@ app = Flask(__name__.split(".")[0])
 CORS(app, resources={r"*": {"origins": "*"}})
 
 
+
 @app.route('/', methods=['POST'], strict_slashes=False)
 def index():
     """ 
@@ -36,14 +37,15 @@ def index():
             return {"error": "Invalid or Corrupted Zip file"}, 400
         application.update({'zipFilename': filename, 'zip_type': zipped})
 
-    print(application)   
     filename = f"app-option_{str(uuid.uuid4())}"
+
     with open(filename, "w") as f_obj:
         json.dump(application, f_obj)
-
-    response = local(f"./run_image.sh {filename}")
-    print(response, "++++++=++response++++====")
-    return {"message": "hello"}
+    
+    local(f"~/backend/run_image.sh {filename}")
+    with open(filename) as f_out:
+        response = json.load(f_out)
+    local(f"rm {filename}")
     # f.save(secure_filename(f.filename))
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
     if response[1] != 200:

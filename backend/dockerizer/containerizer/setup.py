@@ -16,5 +16,6 @@ if __name__ == "__main__":
 
     with open("application_config", "r") as f:
         application = json.load(f)
-    print(application)
-    setup_config(application)
+    response = setup_config(application)
+    with open("application_config", "w") as f_obj:
+        json.dump(response, f_obj)
