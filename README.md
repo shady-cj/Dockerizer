@@ -3,7 +3,7 @@
 ## Description :bulb:
 You might already have an idea what this project is about from the name. *Dockerizer* is a simple application that helps developers containerize their application using docker with just few clicks and typing where needed. It takes your application and its specifications and then builds an image of it using the famous docker. 
 
-Before we go deep into how to use the application let us iterating what the app solves and what it doesn't
+Before we go deep into how the application works let us start by iterating over what the application solves and what it doesn't
 
 ## What it does:
 - [x] Containerize applications using a dockerfile
