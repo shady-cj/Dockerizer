@@ -23,7 +23,7 @@ Before we go deep into how the application works let us start by iterating over 
       - [Github repo link](#github-link)
       - [Zipped files](#zip)
    - [Application Configuration](#application-configuration)
-   - Personalized Information(#personalized-information)
+   - [Personalized Information](#personalized-information)
 - Walkthrough on Technologies and libraries used.
 
 #### Getting started.
@@ -122,13 +122,23 @@ COPY fileC fileC
 The rest of the fields in order that they appear includes
 
 - The commands to run while buiding the image: This refers the commands to run with the `RUN` command. Which is basically commands to be run while the image is being built. It uses the `RUN` command in the dockerfile and you can add as many commands as you would like to.
-- Port opening: This exposes a port on the image which will only be very effective when running the container of the image. The port option opens up a port on the image in which other container being created from the image can use.
+- Port opening: This exposes a port on the image which will only be very effective when running the container of the image. The port option opens up a port on the image in which other container being created from the image can use. It uses the `EXPOSE` command.
 - Commands to start up the application refers to the commands to be specified in the dockerfile `CMD` command you can add as much as you need to.
 - Environment variables. You can add as much environment variable as you need. it uses the `ENV` command. It uses the format `name=variable`. 
 - 
 
 
+#### Personalized Information
 
+![Dockerizer - Google Chrome 3_7_2023 11_49_42 PM (2)](https://user-images.githubusercontent.com/66220414/223572041-2ae5db4c-613c-46d0-84b8-9f01bdab058b.png)
+
+The last section before we fully dockerize our application.
+
+Here are the fields in order they appear and what they mean.
+
+- This image name / app name: This is basically the docker hub repo name of your project or the name of your project itself. (You must likely name your dockerhub repo your app name or project name).
+- The image tag - This simply means the version you want to currently create an image for. Docker itself encourages project versioning which is important in progressive projects. If this field is left blank the default of "latest" is used.
+- The dockerhub credentials(username and password) - This is required so as to push the created image to the users dockerhub account. You don't have to worry about your credential leaks as this would not be stored/saved anywhere. All informations are deleted after every session (succesful or not)
 
 
 
