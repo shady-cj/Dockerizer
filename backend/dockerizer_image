@@ -29,6 +29,7 @@ RUN apt-get install -y openssh-server
 # Copy dependencies and files
 WORKDIR /app
 COPY requirements.txt .
+COPY secret_parser.py secret_parser.py
 RUN pip install -r requirements.txt
 COPY dockerizer/containerizer/ .
 

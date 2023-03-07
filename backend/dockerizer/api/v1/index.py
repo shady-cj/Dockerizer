@@ -5,6 +5,8 @@ import os
 import zipfile
 import tarfile
 from fabric.api import local
+import json
+import uuid
 #from dockerizer.containerizer.setup import setup_config
 
 app = Flask(__name__.split(".")[0])
@@ -33,9 +35,14 @@ def index():
         if not zipped:
             return {"error": "Invalid or Corrupted Zip file"}, 400
         application.update({'zipFilename': filename, 'zip_type': zipped})
-    print(application)    
-    response = local(f"echo '{application}' | docker run --tty -v /var/run/docker.sock:/var/run/docker.sock dockerizer")
-    print(response)
+
+    print(application)   
+    filename = f"app-option_{str(uuid.uuid4())}"
+    with open(filename, "w") as f_obj:
+        json.dump(application, f_obj)
+
+    response = local(f"./run_image.sh {filename}")
+    print(response, "++++++=++response++++====")
     return {"message": "hello"}
     # f.save(secure_filename(f.filename))
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}

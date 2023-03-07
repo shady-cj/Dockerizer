@@ -123,15 +123,14 @@ check the dockerfile template and the path provided and ensure no error", 400]
                             compose_dockerfile += f"RUN {command}\n"
                         for key, env in docker_envs.items():
                             compose_dockerfile += f"ENV {env}\n"
-                        for key, cmd in docker_cmd_commands.items():
-                            compose_dockerfile += "CMD "
-                            cmd_array = cmd.split(" ")
-                            stripped_cmd_array = []
-                            for c in cmd_array:
-                                stripped_cmd_array.append(c.strip())
-                            compose_dockerfile += f"{json.dumps(stripped_cmd_array)}\n"
+                        if  len(docker_cmd_commands.items()):
+                            compose_dockerfile += "CMD"
+                            for key, cmd in docker_cmd_commands.items():
+                                compose_dockerfile += f" {cmd.strip()};"
+                            compose_dockerfile += "\n"
                         for key, port in docker_ports.items():
                             compose_dockerfile += f"EXPOSE {port}\n"
+                        print(compose_dockerfile)
                     try:
                         with open(f"{current_path}/Dockerfile",  "w+") as f:
                             f.write(compose_dockerfile)
