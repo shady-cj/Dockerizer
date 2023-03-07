@@ -12,9 +12,11 @@ import os
 import jwt
 
 
+#env.hosts=['100.25.109.39']a
 env.hosts=['127.0.0.1']
 env.user = os.getenv("USER")
-env.password = os.getenv("PASSWORD")
+# env.password = os.getenv("PASSWORD")
+env.key_filename=['~/.ssh/dockerizer_pem']
 
 def codebase_setup(app):
     """
@@ -37,11 +39,11 @@ def codebase_setup(app):
                         file.extractall(path='{}/static/session-{}'.format(current_directory, session_id))
                 except zipfile.LargeZipFile:
                     local("rm -f {}".format(filename))
-                    local("rm -rf static")
+                    local(f"rm -rf static/session-{session_id}")
                     return ["Error: File size if too large", 400]
                 except:
                     local("rm -f {}".format(filename))
-                    local("rm -rf static")
+                    local(f"rm -rf static/session-{session_id}")
                     return ["Error: Something went wrong while unzipping file", 400]
             else:
                 try:
@@ -50,7 +52,7 @@ def codebase_setup(app):
                         t.extractall(path='{}/static/session-{}/'.format(current_directory, session_id))
                 except Exception as e:
                     local("rm -f {}".format(filename))
-                    local("rm -rf static")
+                    local(f"rm -rf static/session-{session_id}")
                     return ["Error: Something went wrong while extracting tarfile", 400]
             local("rm -f {}".format(filename))
                 
@@ -58,18 +60,20 @@ def codebase_setup(app):
             try:
                 # Converting github urls to the ssh form incase it's not already in the format
                 repo_link = app.get("gitRepoLink")
+            
                 if repo_link.find("git@github.com:") == -1:
                     sp = repo_link.split("github.com")
                     sp = sp[1].strip("/")
                     repo_link = "git@github.com:" + sp + ".git"
-                    print(repo_link)
+                
                 with settings(warn_only=True):
                     r = run('git clone {} .'.format(repo_link))
                     if r.failed:
-                        local("rm -rf static")
+                        local(f"rm -rf static/session-{session_id}")
                         return ["An error occured while cloning", 400] 
-            except:
-                local("rm -rf static")
+            except Exception as e:
+                print(e)
+                local(f"rm -rf static/session-{session_id}")
                 return ["An error occured while cloning the repo you provided, possibly an invalid link", 400]
         current_path = current_directory + "/static/session-" + session_id
         root_folder = app.get('rootFolder').lstrip('/')
@@ -93,7 +97,7 @@ def codebase_setup(app):
                     with settings(warn_only=True):
                         r = run("docker build -t {}:{} {}".format(image_name, app_tag, docker_file_path))
                         if r.failed:    
-                            local("rm -rf static")
+                            local(f"rm -rf static/session-{session_id}")
                             return ["An error occured while building your image from the dockerfile you provided,\
 check the dockerfile template and the path provided and ensure no error", 400]
                 else:
@@ -132,13 +136,13 @@ check the dockerfile template and the path provided and ensure no error", 400]
                         with open(f"{current_path}/Dockerfile",  "w+") as f:
                             f.write(compose_dockerfile)
                     except:
-                        local('rm -rf static')
+                        local(f"rm -rf static/session-{session_id}")
                         return ["An error occured while saving the dockerfile provided", 400]
                     # Building the docker image after composing the dockerfile from the options provided
                     with settings(warn_only = True):
                         r = run("docker build -t {}:{} .".format(image_name, app_tag))
                         if r.failed:
-                            local('rm -rf static')
+                            local(f"rm -rf static/session-{session_id}")
                             return ["An error occured while trying to build image perhaps something went wrong with the dockerfile options you provided", 400]
                 
                 # Getting the password and encrypting it
@@ -160,19 +164,19 @@ check the dockerfile template and the path provided and ensure no error", 400]
                         r = run("cat /tmp/{} | {}/secret_parser.py | docker login -u {} --password-stdin".format(secret_name, current_directory, username))
                         if r.failed:
                             local(f"rm -f /tmp/{secret_name}")
-                            local('rm -rf static')
+                            local(f"rm -rf static/session-{session_id}")
                             local(f'docker rmi -f {image_name}:{app_tag}')
                             return ["An error occured while trying to login to your dockerhub account", 400]
                     run(f"rm /tmp/{secret_name}")
                 except Exception as e:
-                    local('rm -rf static')
+                    local(f"rm -rf static/session-{session_id}")
                     local(f'docker rmi -f {image_name}:{app_tag}')
                     return ["An error occured", 400]
                 
                 with settings(warn_only=True):
                     r = run("docker push {}:{}".format(image_name, app_tag))
                     if r.failed:
-                        local('rm -rf static')
+                        local(f"rm -rf static/session-{session_id}")
                         local(f'docker rmi -f {image_name}:{app_tag}')
                         local("rm ~/.docker/config.json")
                         return ["Something went wrong while trying to push to dockerhub", 400]                                             
@@ -183,7 +187,7 @@ check the dockerfile template and the path provided and ensure no error", 400]
         """
         cleaning up if all is successful
         """
-        local('rm -rf static')
+        local(f"rm -rf static/session-{session_id}")
         local(f'docker rmi -f {image_name}:{app_tag}')
         local("rm ~/.docker/config.json")
     return ["success", 200, f'https://hub.docker.com/repository/docker/{image_name}']

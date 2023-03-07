@@ -1,0 +1,5 @@
+PyJWT==2.3.0
+Flask==2.1.0
+Flask-Cors==3.0.10
+Fabric3==1.14.post1
+requests==2.25.1

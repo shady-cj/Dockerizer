@@ -4,7 +4,8 @@ from flask_cors import CORS
 import os 
 import zipfile
 import tarfile
-from dockerizer.containerizer.setup import setup_config
+from fabric.api import local
+#from dockerizer.containerizer.setup import setup_config
 
 app = Flask(__name__.split(".")[0])
 CORS(app, resources={r"*": {"origins": "*"}})
@@ -32,8 +33,10 @@ def index():
         if not zipped:
             return {"error": "Invalid or Corrupted Zip file"}, 400
         application.update({'zipFilename': filename, 'zip_type': zipped})
-    
-    response = setup_config(application)
+    print(application)    
+    response = local(f"echo '{application}' | docker run --tty -v /var/run/docker.sock:/var/run/docker.sock dockerizer")
+    print(response)
+    return {"message": "hello"}
     # f.save(secure_filename(f.filename))
     # print(dict(request.form)) # {'sourceCodeType': 'zip', 'gitRepoLink': ''}
     if response[1] != 200:
