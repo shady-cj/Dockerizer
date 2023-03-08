@@ -1,0 +1,41 @@
+FROM ubuntu:20.04
+
+# Installing python3
+RUN apt update && apt upgrade -y
+
+RUN apt install -y python3 && apt install -y python3-pip
+
+# Installing Docker
+ENV TZ=Africa/Lagos
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+RUN apt-get install -y curl apt-transport-https ca-certificates software-properties-common
+
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+RUN apt update
+
+RUN apt-cache policy docker-ce
+
+RUN apt install -y docker-ce
+
+# Installing git
+RUN apt-get install -y git-all
+
+# Installing openssh_server for ssh
+RUN apt-get install -y openssh-server
+# Copy dependencies and files
+WORKDIR /app
+COPY requirements.txt .
+COPY secret_parser.py secret_parser.py
+RUN pip install -r requirements.txt
+COPY dockerizer/containerizer/ .
+
+# create an ssh key
+RUN ssh-keygen -t rsa -N "" -f ~/.ssh/dockerizer_pem
+RUN cat /root/.ssh/dockerizer_pem.pub > /root/.ssh/authorized_keys
+EXPOSE 22
+CMD service ssh start; python3 -m setup > /dev/null;
+#CMD ["python3", "-m", "setup"]
