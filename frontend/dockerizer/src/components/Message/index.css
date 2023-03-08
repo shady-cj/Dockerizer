@@ -71,3 +71,18 @@
     font-size: 1rem;
     color: white;
 }
+
+@media screen and (max-width: 576px) {
+    .display-message>small>svg {
+        font-size: 0.8rem;
+    }
+    .display-message a {
+        font-size: 0.65em;
+    }
+    .display-message {
+        height: 50vh;
+    }
+    .success-message~a {
+        font-size: 0.5em;
+    }
+}
