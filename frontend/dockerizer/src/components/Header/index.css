@@ -29,6 +29,10 @@ header ul {
     align-items: center;
 }
 
+header ul a:any-link {
+    color: inherit;
+}
+
 header ul li a {
     text-decoration: none;
     font-size: 0.75rem;

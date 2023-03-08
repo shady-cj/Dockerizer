@@ -10,11 +10,11 @@ const index = ({message, setMessage}) => {
                 <small onClick={()=>setMessage(null)}><Icon icon="material-symbols:cancel-outline-sharp" /></small>
               {
                   message.error ? <>
-                      <h4 class="error-message">Error <Icon icon="material-symbols:cancel" /></h4>
+                      <h4 className="error-message">Error <Icon icon="material-symbols:cancel" /></h4>
                       <p> {message.error} </p>     
                     </> :
                       <>
-                          <h4 class="success-message"> Success <Icon icon="gridicons:checkmark-circle" /> </h4>
+                          <h4 className="success-message"> Success <Icon icon="gridicons:checkmark-circle" /> </h4>
                           <p>Access Your image below</p>
                           <a href={message.image} target="_blank">{message.image}</a>
                       </>

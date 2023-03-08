@@ -144,7 +144,7 @@ const applicationInfo = ({ appOptions }) => {
                                     
                                     </div>
                                     <div>
-                                        <label>Commands to start up your apps?</label>
+                                        <label>Commands to start up your app?</label>
                                         <div className='extras-input'>     
                                             {
                                             

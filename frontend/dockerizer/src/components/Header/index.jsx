@@ -8,7 +8,7 @@ function Header() {
           <img height={200} width={200} src={logo} alt="" />
           <ul>
               <li>
-                  <a>Documentation</a>
+                  <a href="https://github.com/shady-cj/Dockerizer/blob/main/README.md" target="_blank">Documentation</a>
               </li>
               <li>
                   <a>Blog</a>
