@@ -175,10 +175,10 @@ function Main({setMessage}) {
 
     }
     const loadTags = async (imageName) => {
-        setLoadingTags(true)
-        setTags([])
         if (imageName.length === 0)
             return;
+        setLoadingTags(true)
+        setTags([])
         try {
             const req = await fetch(`https://www.ceejay.tech/${imageName}/tags`)
             const response = await req.json()
