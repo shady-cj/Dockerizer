@@ -145,34 +145,52 @@ function Main({setMessage}) {
         }
         
         setDockerizerLoading(true)
-        const response = await fetch('https://www.ceejay.tech', {
-            method: "POST",
-            body: data,
-        })
-        const result = await response.json()
-        .catch(err => console.log(err))
-        setMessage(result)
-        setDockerizerLoading(false)
+        try {
+            const response = await fetch('https://www.ceejay.tech', {
+                method: "POST",
+                body: data,
+            })
+            const result = await response.json()
+            setMessage(result)
+            setDockerizerLoading(false)
+
+        } catch (err) {
+            console.log(err)
+            setMessage({"error": err.message})
+            setDockerizerLoading(false)
+        }
+        
+      
 
     }
 
     const loadImages = async () => {
-        const req = await fetch("https://www.ceejay.tech/images")
-        const resp = await req.json()
-        .catch(err => console.log(err))
-        console.log(resp)
-        setImages(resp.images)
+        try {
+            const req = await fetch("https://www.ceejay.tech/images")
+            const resp = await req.json()
+            setImages(resp.images)
+        } catch (err) {
+            console.log(err)
+            setMessage({ "error": err.message })
+            setImages([])
+        }
+        
 
     }
     const loadTags = async (imageName) => {
         setLoadingTags(true)
         setTags([])
-        const req = await fetch(`https://www.ceejay.tech/${imageName}/tags`)
-        const response = await req.json()
-        .catch(err => console.log(err))
-        console.log(response)
-        setTags(response.tags)
-        setLoadingTags(false)
+        try {
+            const req = await fetch(`https://www.ceejay.tech/${imageName}/tags`)
+            const response = await req.json()
+            setTags(response.tags)
+            setLoadingTags(false)
+        } catch (err) {
+            setMessage({ "error": err.message })
+            setTags([])
+            setLoadingTags(false)
+        }
+       
     }
 
 
