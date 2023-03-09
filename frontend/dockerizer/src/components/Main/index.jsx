@@ -54,7 +54,6 @@ function Main({setMessage}) {
             loadTags(e.target.value)
             
         setOptions(prevOpt => ({ ...prevOpt, [e.target.name]: e.target.value.trim() }));
-        console.log(options);
     }
     const handleExtrasChange = (e, key) => {
         setOptions(prevOpt => ({...prevOpt, [e.target.name]: {...prevOpt[e.target.name], [key]: e.target.value}}))
@@ -68,13 +67,11 @@ function Main({setMessage}) {
                 if (k !== valueKey)
                     newOptObj[k] = prevOptObj[k]
             }
-            console.log(newOptObj)
             prevOpt[optionKey] = newOptObj
             return prevOpt
         })
     }
     const handleFileChange = (e) => {
-        console.log(e.target.files[0]);
         setOptions(prevOpt=>({... prevOpt, [e.target.name]: e.target.files[0]}))
     }
 
@@ -186,6 +183,7 @@ function Main({setMessage}) {
             setTags(response.tags)
             setLoadingTags(false)
         } catch (err) {
+            console.log(err)
             setMessage({ "error": err.message })
             setTags([])
             setLoadingTags(false)
