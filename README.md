@@ -147,16 +147,16 @@ Here are the fields in order they appear and what they mean.
 ### Dependencies :couple:
 
 **Front-End**: 
-[React](https://reactjs.org/) 
+- [React](https://reactjs.org/) 
 
 **Backend**:
 
-[Flask](https://flask.palletsprojects.com/en/2.2.x/)
-[Fabric](https://www.fabfile.org/)
-[docker](https://docs.docker.com/get-started/)
-[gunicorn](https://gunicorn.org/)
-[PyJWT](https://pyjwt.readthedocs.io/en/stable/)
-[haproxy](https://www.haproxy.org/)
+- [Flask](https://flask.palletsprojects.com/en/2.2.x/)
+- [Fabric](https://www.fabfile.org/)
+- [docker](https://docs.docker.com/get-started/)
+- [gunicorn](https://gunicorn.org/)
+- [PyJWT](https://pyjwt.readthedocs.io/en/stable/)
+- [haproxy](https://www.haproxy.org/)
 
 The frontend is a simple react application that communicates with the flask backend api
 While the backend consist of a flask application that serves the api. Spin up a docker container from a pre-built image to run all each users dockerizer request. Also with the use of gunicorn and asynchronous request hadling the application is able to manage multiple request at the same time with no extra delay. And ofcourse haproxy for security and reverse-proxying request to the backend.
