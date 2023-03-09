@@ -142,16 +142,15 @@ Here are the fields in order they appear and what they mean.
 - The dockerhub credentials(username and password) - This is required so as to push the created image to the users dockerhub account. You don't have to worry about your credential leaks as this would not be stored/saved anywhere. All informations are deleted after every session (succesful or not)
 
 
-
 #### Tools Walkthrough
 
 ### Dependencies :couple:
 
-**Front-End**:
-
+**Front-End**: 
 [React](https://reactjs.org/) 
 
-**Backend**
+**Backend**:
+
 [Flask](https://flask.palletsprojects.com/en/2.2.x/)
 [Fabric](https://www.fabfile.org/)
 [docker](https://docs.docker.com/get-started/)
