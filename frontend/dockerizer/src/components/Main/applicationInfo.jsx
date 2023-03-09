@@ -202,8 +202,7 @@ const applicationInfo = ({ appOptions }) => {
                                         Custom Dockerfile? paste or type here
                                     </label>
                                               <textarea rows={"10"} cols={"50"} onChange={handleChange} name="customDockerfile"
-                                                  placeholder='
-                                                  FROM python:3.10-slim-bullseye...'></textarea>
+                                                  placeholder='FROM python:3.10-slim-bullseye...'></textarea>
                                 </section>
 
 
