@@ -143,13 +143,9 @@ function Main({setMessage}) {
         for (let optionKey in parsedOptions) {
             data.append(optionKey, parsedOptions[optionKey])
         }
-        // console.log(data);
-
-        // 192.168.0.106
-        // 172.20.10.5
-        // http://192.168.1.105:5173/
+        
         setDockerizerLoading(true)
-        const response = await fetch('http://100.25.109.39:8000', {
+        const response = await fetch('https://www.ceejay.tech', {
             method: "POST",
             body: data,
         })
@@ -161,7 +157,7 @@ function Main({setMessage}) {
     }
 
     const loadImages = async () => {
-        const req = await fetch("http://100.25.109.39:8000/images")
+        const req = await fetch("https://www.ceejay.tech/images")
         const resp = await req.json()
         .catch(err => console.log(err))
         console.log(resp)
@@ -171,7 +167,7 @@ function Main({setMessage}) {
     const loadTags = async (imageName) => {
         setLoadingTags(true)
         setTags([])
-        const req = await fetch(`http://100.25.109.39:8000/${imageName}/tags`)
+        const req = await fetch(`https://www.ceejay.tech/${imageName}/tags`)
         const response = await req.json()
         .catch(err => console.log(err))
         console.log(response)
