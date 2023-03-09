@@ -107,7 +107,8 @@ Let's walkthrough how to use them.
 
 ![Dockerizer - Google Chrome 3_7_2023 11_23_36 PM (2)](https://user-images.githubusercontent.com/66220414/223567498-5009c766-a490-48c8-ab24-e96f2f52587e.png)
 
-Select an image to use and a new set of options shows up and also another drop down shows up. This drop down provides series of tags you can use which is not always required. if you leave blank without selecting any the default of `latest` would be used.
+Select an image to use and a new set of options shows up and also another new drop down shows up. This drop down provides series of tags you can use which is not always required. if you leave blank without selecting any the default of `latest` would be used.
+:triangular_flag_on_post: NOTE: Not all official images and tags might be present. If the image you want to use is an official image and isn't present you can just type it there the dropdown as the ability to receive normal text so you can absolutely type in your image if it's not present. Same goes for the tag.
 
 The *App Directory Path* field is solely for determining what folder to copy while using the `COPY` command in the dockerfile template being built. If you leave the field blank the default of `COPY . .`  is used. You can also use an unquoted period(.) as a value. that would also mean the same thing. 
 
@@ -156,13 +157,13 @@ Here are the fields in order they appear and what they mean.
 [docker](https://docs.docker.com/get-started/)
 [gunicorn](https://gunicorn.org/)
 [PyJWT](https://pyjwt.readthedocs.io/en/stable/)
-
-
+[haproxy](https://www.haproxy.org/)
 
 The frontend is a simple react application that communicates with the flask backend api
-While the backend consist of a flask application that serves the api. Spin up a docker container from a pre-built image to run all each users dockerizer request. Also with the use of gunicorn and asynchronous request hadling the application is able to manage multiple request at the same time with no extra delay.
+While the backend consist of a flask application that serves the api. Spin up a docker container from a pre-built image to run all each users dockerizer request. Also with the use of gunicorn and asynchronous request hadling the application is able to manage multiple request at the same time with no extra delay. And ofcourse haproxy for security and reverse-proxying request to the backend.
 
 
+P.S. It's important to know the application is still being tested and might sometimes fail. It might also fail because the infrastructure the backend is currently deployed isn't powerful enough to handle high traffic.
 
 
 
