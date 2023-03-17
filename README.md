@@ -162,7 +162,7 @@ The frontend is a simple react application that communicates with the flask back
 While the backend consist of a flask application that serves the api. Spin up a docker container from a pre-built image to run all each users dockerizer request. Also with the use of gunicorn and asynchronous request hadling the application is able to manage multiple request at the same time with no extra delay. And ofcourse haproxy for security and reverse-proxying request to the backend.
 
 
-P.S. It's important to know the application is still being tested and might sometimes fail. It might also fail because the infrastructure the backend is currently deployed isn't powerful enough to handle high traffic.
+P.S. It's important to know the application is still being tested and might sometimes fail. It might also fail because the current infrastructure isn't powerful enough to handle high traffic.
 
 
 
