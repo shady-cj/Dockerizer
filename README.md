@@ -1,5 +1,7 @@
 # Dockerizer
 
+## Blog Posts
+- [Using the dockerizer application](https://medium.com/@petersp2000/using-the-dockerizer-application-d2e0b16a40d4)
 ## Description :bulb:
 You might already have an idea what this project is about from the name. **Dockerizer** is a simple application that helps developers containerize their application using docker with just few clicks and typing (where needed). It takes your application and its specifications and goes on to build an image of it using the famous docker. 
 
